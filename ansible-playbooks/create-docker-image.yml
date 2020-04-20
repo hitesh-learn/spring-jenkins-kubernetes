@@ -3,10 +3,10 @@
 - hosts: ansible-server
 
   tasks:
-    - name: create docker image using jar file
+    - name: create docker image using war file
       command: docker build -t springboot-jenkins:latest .
       args:
-        chdir: /opt/kubernetes
+        chdir: /opt/spring
     - name: Tag the image
       command: docker tag springboot-jenkins hiteshjoshi1/springboot-jenkins:latest
 
@@ -14,5 +14,5 @@
       command: docker push hiteshjoshi1/springboot-jenkins:latest
 
     - name: Remove Image from Ansible server
-      command: docker rmi simple-devops-image:latest hiteshjoshi1/springboot-jenkins:latest
+      command: docker rmi springboot-jenkins:latest hiteshjoshi1/springboot-jenkins:latest
       ignore_errors: yes
