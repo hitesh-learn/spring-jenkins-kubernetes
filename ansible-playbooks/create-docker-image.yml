@@ -8,11 +8,11 @@
       args:
         chdir: /opt/kubernetes
     - name: Tag the image
-      command: docker tag springboot-jenkins hiteshjoshi1/springboot-jenkins
+      command: docker tag springboot-jenkins hiteshjoshi1/springboot-jenkins:latest
 
     - name: Push the Image to repo inour case DockerHub
-      command: docker push hiteshjoshi1/springboot-jenkins
+      command: docker push hiteshjoshi1/springboot-jenkins:latest
 
     - name: Remove Image from Ansible server
-      command: docker rmi simple-devops-image:latest hiteshjoshi1/springboot-jenkins
+      command: docker rmi simple-devops-image:latest hiteshjoshi1/springboot-jenkins:latest
       ignore_errors: yes

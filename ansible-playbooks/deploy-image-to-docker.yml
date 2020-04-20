@@ -12,7 +12,7 @@
       command: docker rm springboot-jenkins-container
       ignore_errors: yes
     - name: remove docker image
-      command: docker rm hiteshjoshi1/springboot-jenkins:latest
+      command: docker rmi hiteshjoshi1/springboot-jenkins:latest
       ignore_errors: yes
 
       #  - name: building docker image
