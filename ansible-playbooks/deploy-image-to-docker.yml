@@ -1,0 +1,26 @@
+# Deploy container in a container in Ansible server itself
+# the container name is spring-container
+# The script stops any running container, removes it and removes it docker image
+# Then pulls a fresh image from docker hub  and deploys it.
+---
+- hosts: ansible-server
+  tasks:
+    - name: stop running containers
+      command: docker stop springboot-jenkins-container
+      ignore_errors: yes
+    - name: remove stopped container
+      command: docker rm springboot-jenkins-container
+      ignore_errors: yes
+    - name: remove docker image
+      command: docker rm hiteshjoshi1/springboot-jenkins:latest
+      ignore_errors: yes
+
+      #  - name: building docker image
+      #command: docker build -t simple-devops-image .
+      # args:
+      # chdir: /opt/docker
+    - name: pull docker image
+      command: docker pull hiteshjoshi1/springboot-jenkins:latest
+
+    - name: create container using simple-devops-image
+      command: docker run -d --name springboot-jenkins-container -p 3000:3000 hiteshjoshi1/springboot-jenkins:latest
