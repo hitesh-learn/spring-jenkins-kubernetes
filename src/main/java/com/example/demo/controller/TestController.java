@@ -9,6 +9,6 @@ public class TestController {
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     public String test() {
-        return "Testing CI /CD";
+        return "Testing CI /CD commit 2";
     }
 }
