@@ -83,16 +83,16 @@ workflows:
       - build:
           filters:
             branches:
-                only: master  
+                only: circleci-project-setup   
       - build-image:
            filters:
              branches:
-               only: master 
+               only: circleci-project-setup  
            requires:
               - build     
       - publish-dockerhub:
            filters:
              branches:
-               only: master 
+               only: circleci-project-setup  
            requires:
               - build-image   
