@@ -41,7 +41,7 @@ jobs: # a collection of steps
       # Upload test summary for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
           path: Dockerfile
           
-build-image:
+  build-image:
     executor: docker-publisher
     steps:
       - attach_workspace:
@@ -61,7 +61,7 @@ build-image:
                 - ./image.tar     
   
   # new workflow step
-publish-dockerhub:
+  publish-dockerhub:
     executor: docker-publisher
     steps:
       - attach_workspace:
