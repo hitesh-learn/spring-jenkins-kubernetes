@@ -52,10 +52,10 @@ jobs: # a collection of steps
                 docker push hiteshjoshi1/springboot-jenkins:latest
 workflows:
   version: 2
-     build-push-dockerhub:
-       jobs:
-          - build
-          - publish-dockerhub:
-              requires:
-                - build        
+  build-push-dockerhub:
+    jobs:
+      - build
+      - publish-dockerhub:
+           requires:
+              - build        
 
