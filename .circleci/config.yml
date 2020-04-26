@@ -1,8 +1,8 @@
 version: 2.1
-  executors:
-      docker-publisher:
-        docker:
-          - image: circleci/buildpack-deps:stretch
+executors:
+    docker-publisher:
+      docker:
+        - image: circleci/buildpack-deps:stretch
  
 jobs: # a collection of steps
   build: # runs not using Workflows must have a `build` job as entry point
