@@ -80,7 +80,7 @@ workflows:
   build-push-dockerhub:
     jobs:
       - build
-      - build-image
+      - build-image:
            requires:
               - build     
       - publish-dockerhub:
