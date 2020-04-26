@@ -82,8 +82,7 @@ workflows:
       - build
       - build-image
            requires:
-              - build 
+              - build     
       - publish-dockerhub:
            requires:
-              - build-image        
-
+              - build-image   
