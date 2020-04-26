@@ -52,8 +52,8 @@ jobs: # a collection of steps
                 docker push hiteshjoshi1/springboot-jenkins:latest
 workflows:
   version: 2
-     build-push-dockerhub: #branch specific workflow
-        jobs:
+     build-push-dockerhub:
+       jobs:
           - build
           - publish-dockerhub:
               requires:
