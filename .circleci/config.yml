@@ -1,5 +1,5 @@
 version: 2.1
-executors:
+executors:    # common executor docker build and docker push jobs
     docker-publisher:
       docker:
         - image: circleci/buildpack-deps:stretch
@@ -9,8 +9,8 @@ jobs: # a collection of steps
     
     working_directory: ~/circleci-spring-jenkins-kubernetes # directory where steps will run
 
-    docker: # run the steps with Docker
-      - image: circleci/openjdk:8-jdk-stretch # ...with this image as the primary container; this is where all `steps` will run
+    docker: # Docker executor with Java bases Image
+      - image: circleci/openjdk:8-jdk-stretch 
 
     steps: # a collection of executable commands
 
@@ -35,7 +35,7 @@ jobs: # a collection of steps
           path: target/surefire-reports
  
       
-      - persist_to_workspace:
+      - persist_to_workspace:    # Persist the Dockerfile and Spring fat jar for next job in the workflow. Else they are lost.
           root: .
           paths:
             - Dockerfile
@@ -43,20 +43,20 @@ jobs: # a collection of steps
 
           
   build-image:
-    executor: docker-publisher
+    executor: docker-publisher.  # use the executor defined at the start
     steps:
-      - attach_workspace:
+      - attach_workspace:    # get the Dockerfile and the fat jar
               at: /tmp/workspace
-      - setup_remote_docker        
+      - setup_remote_docker        # make sure you can run docker commands
       - run:
           name: Build and tag docker image
           command: |
             docker build -f /tmp/workspace/Dockerfile -t springboot-jenkins:latest .
             docker tag springboot-jenkins hiteshjoshi1/springboot-jenkins:latest
       - run:
-           name: Archive Docker image
+           name: Create an Image archive - tar
            command: docker save -o image.tar hiteshjoshi1/springboot-jenkins:latest     
-      - persist_to_workspace:
+      - persist_to_workspace:      # Save the tar for next step
               root: .
               paths:
                 - ./image.tar     
@@ -81,9 +81,18 @@ workflows:
   build-push-dockerhub:
     jobs:
       - build
+          filters:
+            branches:
+                only: master  
       - build-image:
+           filters:
+             branches:
+               only: master 
            requires:
               - build     
       - publish-dockerhub:
+           filters:
+             branches:
+               only: master 
            requires:
               - build-image   
