@@ -1,5 +1,11 @@
 # Spring Boot project - CI/CD deployment to Kubernetes in AWS
 
+## Branch specific to Jenkins and Ansible- deploying to a k8 cluster created using kops.
+
+Other branches will use circleci and will be deploying wither to k8s with AKS- ECR
+This is kept for learning purposes. I prefer circleci. 
+
+
 Used kops to create a 3 node cluster ,1 t2-medium master and 2 t2-micro nodes.
 
 #### Command to create
