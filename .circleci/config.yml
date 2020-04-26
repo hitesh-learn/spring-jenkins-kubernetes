@@ -37,9 +37,9 @@ jobs: # a collection of steps
           command: |
             docker build -t springboot-jenkins:latest .
             docker tag springboot-jenkins hiteshjoshi1/springboot-jenkins:latest
-     - run:
-         name: Push docker image to Docker Hub
-         command: |
+      - run:
+          name: Push docker image to Docker Hub
+          command: |
                 echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
                 docker push hiteshjoshi1/springboot-jenkins:latest
 
