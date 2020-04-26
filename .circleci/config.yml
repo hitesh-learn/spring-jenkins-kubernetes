@@ -45,12 +45,12 @@ jobs: # a collection of steps
     executor: docker-publisher
     steps:
       - attach_workspace:
-              at: /target
+              at: /tmp/workspace
       - setup_remote_docker        
       - run:
           name: Build and tag docker image
           command: |
-            docker build -t springboot-jenkins:latest .
+            docker build -f /tmp/workspace/Dockerfile -t springboot-jenkins:latest .
             docker tag springboot-jenkins hiteshjoshi1/springboot-jenkins:latest
       - run:
            name: Archive Docker image
