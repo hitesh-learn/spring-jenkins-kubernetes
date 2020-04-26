@@ -61,7 +61,7 @@ build-image:
                 - ./image.tar     
   
   # new workflow step
-  publish-dockerhub:
+publish-dockerhub:
     executor: docker-publisher
     steps:
       - attach_workspace:
