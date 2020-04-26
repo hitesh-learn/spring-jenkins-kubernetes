@@ -43,7 +43,7 @@ jobs: # a collection of steps
 
           
   build-image:
-    executor: docker-publisher.  # use the executor defined at the start
+    executor: docker-publisher  # use the executor defined at the start
     steps:
       - attach_workspace:    # get the Dockerfile and the fat jar
               at: /tmp/workspace
