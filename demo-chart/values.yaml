@@ -5,8 +5,8 @@
 replicaCount: 2
 
 image:
-  repository: springboot-jenkins
-  pullPolicy: IfNotPresent
+  repository: hiteshjoshi1/springboot-jenkins
+  pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
 
