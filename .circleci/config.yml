@@ -46,12 +46,12 @@ jobs: # a collection of steps
     executor: docker-publisher  # use the executor defined at the start
     steps:
       - attach_workspace:    # get the Dockerfile and the fat jar
-              at: /tmp/workspace
+              at: /usr/app 
       - setup_remote_docker        # make sure you can run docker commands
       - run:
           name: Build and tag docker image
           command: |
-            docker build -f /tmp/workspace/Dockerfile -t springboot-jenkins:latest .
+            docker build -f /usr/app/Dockerfile -t springboot-jenkins:latest .
             docker tag springboot-jenkins hiteshjoshi1/springboot-jenkins:latest
       - run:
            name: Create an Image archive - tar
@@ -66,11 +66,11 @@ jobs: # a collection of steps
     executor: docker-publisher
     steps:
       - attach_workspace:
-            at: /tmp/workspace
+            at: /usr/app
       - setup_remote_docker
       - run:
           name: Load archived Docker image
-          command: docker load -i /tmp/workspace/image.tar
+          command: docker load -i /usr/app/image.tar
       - run:
           name: Push docker image to Docker Hub # DOCKERHUB_PASS and DOCKERHUB_USERNAME are environment variables created in project for circleci
           command: |
@@ -87,15 +87,15 @@ workflows:
           filters:
             branches:
                 only: master   
-      # - build-image:
-      #      filters:
-      #        branches:
-      #          only: master
-      #      requires:
-      #         - build     
-      # - publish-dockerhub:
-      #      filters:
-      #        branches:
-      #          only: master  
-      #      requires:
-      #         - build-image   
+      - build-image:
+           filters:
+             branches:
+               only: master
+           requires:
+              - build     
+      - publish-dockerhub:
+           filters:
+             branches:
+               only: master  
+           requires:
+              - build-image   
