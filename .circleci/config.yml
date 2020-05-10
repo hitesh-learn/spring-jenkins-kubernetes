@@ -46,12 +46,12 @@ jobs: # a collection of steps
     executor: docker-publisher  # use the executor defined at the start
     steps:
       - attach_workspace:    # get the Dockerfile and the fat jar
-              at: /tmp/workspace 
+              at: .
       - setup_remote_docker        # make sure you can run docker commands
       - run:
           name: Build and tag docker image
           command: |
-            docker build -f /tmp/workspace/Dockerfile -t springboot-jenkins:latest .
+            docker build -f ./Dockerfile -t springboot-jenkins:latest .
             docker tag springboot-jenkins hiteshjoshi1/springboot-jenkins:latest
       - run:
            name: Create an Image archive - tar
