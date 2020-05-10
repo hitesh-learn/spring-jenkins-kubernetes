@@ -87,15 +87,15 @@ workflows:
           filters:
             branches:
                 only: master   
-      - build-image:
-           filters:
-             branches:
-               only: master
-           requires:
-              - build     
-      - publish-dockerhub:
-           filters:
-             branches:
-               only: master  
-           requires:
-              - build-image   
+      # - build-image:
+      #      filters:
+      #        branches:
+      #          only: master
+      #      requires:
+      #         - build     
+      # - publish-dockerhub:
+      #      filters:
+      #        branches:
+      #          only: master  
+      #      requires:
+      #         - build-image   
