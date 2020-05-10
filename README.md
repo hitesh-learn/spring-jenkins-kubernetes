@@ -42,3 +42,15 @@ ansible-playbook -i /opt/spring/hosts /opt/spring/deploy-spring-deployment-k8.ym
 - Not totally automated as I still had to push kubernetes config to master manually and copy ansible server keys to kubernetes master.
 - Also if jenkins and ansible in two different keys, need to setup jenkins to be able to ssh to ansible.
 - Probably dive into commercial offerings from here
+
+
+circleci added
+
+
+```helm install --dry-run --debug tad-puppy ./demo-chart```
+
+```helm install tad-puppy ./demo-chart```
+
+```helm uninstall tad-puppy```
+
+
