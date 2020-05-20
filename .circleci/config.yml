@@ -80,7 +80,7 @@ jobs: # a collection of steps
                 docker push hiteshjoshi1/springboot-jenkins:latest
                 docker push hiteshjoshi1/springboot-jenkins:$IMAGE_TAG
 
-   deploy:
+  deploy:
     docker:
       - image: lachlanevenson/k8s-helm:v2.14.1
     environment:
