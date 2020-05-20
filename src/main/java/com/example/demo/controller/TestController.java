@@ -10,7 +10,7 @@ public class TestController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String get() {
-        return "Initial Base API Test";
+        return "Initial Base API Test 2";
     }
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)
