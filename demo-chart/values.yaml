@@ -23,8 +23,13 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
-podAnnotations: {}
+podAnnotations: {
+  timestamp: "{{ .Values.timestamp }}"
+}
+    
 
+    # prometheus.io/path: /metrics
+    # {{ date "20060102150405" .Release.Time }}
 podSecurityContext: {}
   # fsGroup: 2000
 

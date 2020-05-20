@@ -70,7 +70,7 @@ terraform apply
 Will create 3 node cluster- 1 master , 2 slaves
 and VPC etc, a total of 52 AWS respurces.
 
-Bring the environment down with
+Bring the environment down with after use, else Jeff bezos will own your underwear.
 
 ```
 terraform destroy
