@@ -43,10 +43,41 @@ ansible-playbook -i /opt/spring/hosts /opt/spring/deploy-spring-deployment-k8.ym
 - Also if jenkins and ansible in two different keys, need to setup jenkins to be able to ssh to ansible.
 - Probably dive into commercial offerings from here
 
+--------------------------------
+# circleci changes
 
-circleci added
+   1. Added circleci to build
+   2. Push to dockerhub
+   3. Then deploy to AWS EKS using Helm.
+   4. Added helm charts for step 3.
+   5. TODO - Streamline push to EKS without using kubeconfig
+   6. Use AWS ECR instead of Docker Hub,
 
-Helm Installation  local changes -
+
+Use Terraform to create the EKS cluster -
+
+https://github.com/hiteshjoshi1/terraform-manifests/tree/master/aws-k8-eks/learn-terraform-provision-eks-cluster
+
+cd into the directory, then
+
+```
+terraform plan
+```
+
+```
+terraform apply
+```
+Will create 3 node cluster- 1 master , 2 slaves
+and VPC etc, a total of 52 AWS respurces.
+
+Bring the environment down with
+
+```
+terraform destroy
+```
+
+
+Helm Installation-
 
 ```helm install --dry-run --debug tad-puppy ./demo-chart```
 
