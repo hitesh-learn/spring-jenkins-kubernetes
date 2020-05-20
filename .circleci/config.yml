@@ -79,6 +79,40 @@ jobs: # a collection of steps
                 docker tag hiteshjoshi1/springboot-jenkins:latest hiteshjoshi1/springboot-jenkins:$IMAGE_TAG
                 docker push hiteshjoshi1/springboot-jenkins:latest
                 docker push hiteshjoshi1/springboot-jenkins:$IMAGE_TAG
+
+   deploy:
+    docker:
+      - image: lachlanevenson/k8s-helm:v2.14.1
+    environment:
+      AWS_DEFAULT_REGION: ap-southeast-1
+    steps:
+      - checkout
+      - run:
+          name: "Install dependecies"
+          command: |
+            apk add --update bash curl git python3
+            curl -o /usr/local/bin/aws-iam-authenticator https://amazon-eks.s3-us-west-2.amazonaws.com/1.13.7/2019-06-11/bin/linux/amd64/aws-iam-authenticator
+            chmod 0755 /usr/local/bin/aws-iam-authenticator
+            python3 -mpip install awscli
+      - run:
+          name: "Set version"
+          shell: /bin/bash -eo pipefail
+          command: |
+            echo "export VERSION=$(git rev-parse --short HEAD)" >> $BASH_ENV
+      - run:
+          name: "Deploy to EKS"
+          shell: /bin/bash -eo pipefail
+          command: |
+            helm upgrade \
+              --kubeconfig .circleci/kubeconfig_env.yaml \
+              --install tad-puppy ./demo-chart
+      - run:
+          name: "Deploy Cleanup"
+          shell: /bin/bash -eo pipefail
+          command: |
+            rm -f $BASH_ENV
+          when: always 
+               
 workflows:
   version: 2
   build-push-dockerhub:
@@ -98,4 +132,11 @@ workflows:
              branches:
                only: master  
            requires:
-              - build-image   
+              - build-image 
+      - deploy:
+          requires:
+            - publish-dockerhub
+          filters:
+            branches:
+              only:
+                - master         
