@@ -103,9 +103,11 @@ jobs: # a collection of steps
           name: "Deploy to EKS"
           shell: /bin/bash -eo pipefail
           command: |
+          IMAGE_TAG="0.0.${CIRCLE_BUILD_NUM}"
             helm upgrade \
               --kubeconfig .circleci/kubeconfig_env.yaml \
-              --install tad-puppy ./demo-chart
+              --install tad-puppy ./demo-chart \
+              --set-string image.tag=${IMAGE_TAG} \
       - run:
           name: "Deploy Cleanup"
           shell: /bin/bash -eo pipefail
