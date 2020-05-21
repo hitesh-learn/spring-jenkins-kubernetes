@@ -10,11 +10,11 @@ public class TestController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String get() {
-        return "Initial Base API Test 4";
+        return "Initial Base API Test 5";
     }
 
     @RequestMapping(value = "/test", method = RequestMethod.GET)
     public String test() {
-        return "Testing CI /CD commit 3";
+        return "Testing CI /CD commit 5";
     }
 }
